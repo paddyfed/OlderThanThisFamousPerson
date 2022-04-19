@@ -1,3 +1,5 @@
+<% const options = { year: 'numeric', month: '2-digit', day: '2-digit' } %> 
 <h2><%= celebrity.name %></h2>
+<div><label>Dateof Birth</label><%= celebrity.dateOfBirth.toLocaleDateString(undefined,options) %></div>
 <a href="/celebrities/<%= celebrity.id %>/edit">Edit</a>
 <%- include('../partials/deleteform', { url: `/celebrities/${celebrity.id}` }) %> 
