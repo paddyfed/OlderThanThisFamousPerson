@@ -25,7 +25,8 @@ router.get('/new', (req, res) => {
 // create author route
 router.post('/', async (req, res) => {
     const celebrity = new Celebrity({
-        name: req.body.name
+        name: req.body.name,
+        dateOfBirth: req.body.dateofbirth
     })
 
     try {
