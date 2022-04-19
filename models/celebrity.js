@@ -8,6 +8,9 @@ const celebritySchema = new mongoose.Schema({
     dateOfBirth: {
         type: Date,
         required: true
+    },
+    dateOfDeath: {
+        type: Date
     }
 })
 

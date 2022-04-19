@@ -26,7 +26,8 @@ router.get('/new', (req, res) => {
 router.post('/', async (req, res) => {
     const celebrity = new Celebrity({
         name: req.body.name,
-        dateOfBirth: req.body.dateofbirth
+        dateOfBirth: req.body.dateofbirth,
+        dateOfDeath: req.body.dateofdeath
     })
 
     try {
