@@ -43,14 +43,26 @@ router.post('/', async (req, res) => {
 })
 
 router.get('/:id', async (req, res) => {
-
     try {
         const celebrity = await Celebrity.findById(req.params.id)
-        res.render('celebrities/view', { celebrity: celebrity })
+        const ageInDays = calculateCelebrityAge(celebrity.dateOfDeath, celebrity.dateOfBirth)
+        res.render('celebrities/view', { celebrity: celebrity, ageInDays: ageInDays })
     } catch (error) {
         res.redirect('/')
     }
 })
+
+function calculateCelebrityAge(dateOfDeath, dateOfBirth) {
+    const today = new Date()
+    today.setUTCHours(0, 0, 0, 0)
+
+    if (dateOfDeath) {
+        return (dateOfDeath - dateOfBirth) / 1000 / 60 / 60 / 24
+    }
+    else {
+        return (today - dateOfBirth) / 1000 / 60 / 60 / 24
+    }
+}
 
 router.get('/:id/edit', async (req, res) => {
     try {

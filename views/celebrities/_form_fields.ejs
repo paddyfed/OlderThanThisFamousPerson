@@ -1,6 +1,6 @@
 <label>Name</label>
 <input type="text" name="name" value="<%= celebrity.name %>">
 <label>Date of Birth</label>
-<input type="Date" name="dateofbirth" value="<%= celebrity.dateOfBirth %>">
+<input type="Date" name="dateofbirth" value="<%= celebrity.dateOfBirth == null ? '' : celebrity.dateOfBirth.toISOString().split('T')[0] %>">
 <label>Date of Death</label>
-<input type="Date" name="dateofdeath" value="<%= celebrity.dateOfDeath %>">
+<input type="Date" name="dateofdeath" value="<%= celebrity.dateOfDeath == null ? '' : celebrity.dateOfDeath.toISOString().split('T')[0] %>">
