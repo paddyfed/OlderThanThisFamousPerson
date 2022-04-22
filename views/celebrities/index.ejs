@@ -1,3 +1,4 @@
+<% const options = { year: 'numeric', month: '2-digit', day: '2-digit' } %> 
 <h2>Search Celebrity</h2>
 <label>Name</label>
 <form method="get" action="/celebrities">
@@ -9,6 +10,13 @@
     <div>
         <%= celebrity.name %>
     </div>
+    <div>
+        <label>Date of Birth</label> <%= celebrity.dateOfBirth.toLocaleDateString(undefined,options) %>
+    </div>
+    <% if(celebrity.dateOfDeath != null && celebrity.dateOfDeath != '') { %>
+        <div><label>Date of Death</label> <%= celebrity.dateOfDeath.toLocaleDateString(undefined,options) %></div>
+        <% } %>
+        <div><label>Age in Days</label> <%= celebrity.ageInDays %></div>
     <a href="/celebrities/<%= celebrity.id %> ">View</a>
     <a href="/celebrities/<%= celebrity.id %>/edit">Edit</a>
     <%- include('../partials/deleteform', { url: `/celebrities/${celebrity.id}` }) %> 

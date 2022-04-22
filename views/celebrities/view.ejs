@@ -4,6 +4,6 @@
 <% if(celebrity.dateOfDeath != null && celebrity.dateOfDeath != '') { %>
 <div><label>Date of Death</label> <%= celebrity.dateOfDeath.toLocaleDateString(undefined,options) %></div>
 <% } %> 
-<div><label>Age in Days</label> <%= ageInDays %></div>
+<div><label>Age in Days</label> <%= celebrity.ageInDays %></div>
 <a href="/celebrities/<%= celebrity.id %>/edit">Edit</a>
 <%- include('../partials/deleteform', { url: `/celebrities/${celebrity.id}` }) %> 
