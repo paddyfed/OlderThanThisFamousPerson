@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Celebrity = require('../models/celebrity')
+const dateUtils = require('../utils-module/calculatedates')
 
 // all celebrities route
 router.get('/', async (req, res) => {
@@ -11,7 +12,7 @@ router.get('/', async (req, res) => {
     try {
         const celebrities = await Celebrity.find(searchOptions)
         celebrities.forEach(celebrity => {
-            celebrity.ageInDays = calculateCelebrityAge(celebrity.dateOfDeath,celebrity.dateOfBirth)
+            celebrity.ageInDays = dateUtils.calculateCelebrityAge(celebrity.dateOfDeath,celebrity.dateOfBirth)
         });
         res.render('celebrities/index', { celebrities: celebrities, searchOptions: req.query })
 
@@ -48,25 +49,13 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const celebrity = await Celebrity.findById(req.params.id)
-        const ageInDays = calculateCelebrityAge(celebrity.dateOfDeath, celebrity.dateOfBirth)
+        const ageInDays = dateUtils.calculateCelebrityAge(celebrity.dateOfDeath, celebrity.dateOfBirth)
         celebrity.ageInDays = ageInDays
         res.render('celebrities/view', { celebrity: celebrity })
     } catch (error) {
         res.redirect('/')
     }
 })
-
-function calculateCelebrityAge(dateOfDeath, dateOfBirth) {
-    const today = new Date()
-    today.setUTCHours(0, 0, 0, 0)
-
-    if (dateOfDeath) {
-        return (dateOfDeath - dateOfBirth) / 1000 / 60 / 60 / 24
-    }
-    else {
-        return (today - dateOfBirth) / 1000 / 60 / 60 / 24
-    }
-}
 
 router.get('/:id/edit', async (req, res) => {
     try {
