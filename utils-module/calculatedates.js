@@ -1,11 +1,14 @@
-exports.calculateCelebrityAge = function (dateOfDeath, dateOfBirth) {
+exports.calculateCelebrityAge = function (dateOfBirth, dateOfDeath = null) {
     const today = new Date()
     today.setUTCHours(0, 0, 0, 0)
 
-    if (dateOfDeath) {
+    if (dateOfDeath && dateOfBirth) {
         return (dateOfDeath - dateOfBirth) / 1000 / 60 / 60 / 24
     }
-    else {
+
+    if(dateOfBirth) {
         return (today - dateOfBirth) / 1000 / 60 / 60 / 24
     }
+
+    return null
 }

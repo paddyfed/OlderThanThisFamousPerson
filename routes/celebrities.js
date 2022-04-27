@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
     try {
         const celebrities = await Celebrity.find(searchOptions)
         celebrities.forEach(celebrity => {
-            celebrity.ageInDays = dateUtils.calculateCelebrityAge(celebrity.dateOfDeath,celebrity.dateOfBirth)
+            celebrity.ageInDays = dateUtils.calculateCelebrityAge(celebrity.dateOfBirth,celebrity.dateOfDeath)
         });
         res.render('celebrities/index', { celebrities: celebrities, searchOptions: req.query })
 
@@ -49,7 +49,7 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const celebrity = await Celebrity.findById(req.params.id)
-        const ageInDays = dateUtils.calculateCelebrityAge(celebrity.dateOfDeath, celebrity.dateOfBirth)
+        const ageInDays = dateUtils.calculateCelebrityAge(celebrity.dateOfBirth, celebrity.dateOfDeath)
         celebrity.ageInDays = ageInDays
         res.render('celebrities/view', { celebrity: celebrity })
     } catch (error) {
