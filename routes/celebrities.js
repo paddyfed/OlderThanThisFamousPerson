@@ -57,6 +57,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+// edit celebrity route
 router.get('/:id/edit', async (req, res) => {
     try {
         const celebrity = await Celebrity.findById(req.params.id)
@@ -73,6 +74,7 @@ router.put('/:id', async (req, res) => {
     try {
         celebrity = await Celebrity.findById(req.params.id)
         celebrity.name = req.body.name
+        celebrity.dateOfBirth = req.body.dateofbirth
         await celebrity.save()
         res.redirect(`/celebrities/${celebrity.id}`)
     } catch (error) {
