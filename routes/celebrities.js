@@ -75,6 +75,7 @@ router.put('/:id', async (req, res) => {
         celebrity = await Celebrity.findById(req.params.id)
         celebrity.name = req.body.name
         celebrity.dateOfBirth = req.body.dateofbirth
+        celebrity.dateOfDeath = req.body.dateofdeath
         await celebrity.save()
         res.redirect(`/celebrities/${celebrity.id}`)
     } catch (error) {
