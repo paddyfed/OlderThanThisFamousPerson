@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
         const celebrities = await Celebrity.find(searchOptions)
         celebrities.forEach(celebrity => {
             celebrity.ageInDays = dateUtils.calculateCelebrityAge(celebrity.dateOfBirth,celebrity.dateOfDeath)
-        });
+        })
         res.render('celebrities/index', { celebrities: celebrities, searchOptions: req.query })
 
     } catch (error) {

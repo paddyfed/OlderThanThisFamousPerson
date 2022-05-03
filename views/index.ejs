@@ -1,8 +1,24 @@
 <% const options = { year: 'numeric', month: '2-digit', day: '2-digit' } %> 
 <h2>Find out which celebrity you are similar in age to</h2>
 <form method="GET" action="/">
-    <div><label>Enter your name:</label> <input type="text" name="yourname" value="<%= yourDetails.yourname %>"></div>
-    <div><label>Enter your Date of Birth:</label> <input type="date" name="yourdateofbirth" value="<%= yourDetails.yourdateofbirth %>"></div>
+    <div><label>Enter your name:</label> <input type="text" name="yourname" value="<%= yourDetails.yourname %>" required></div>
+    <div><label>Enter your Date of Birth:</label> <input type="date" name="yourdateofbirth" value="<%= yourDetails.yourdateofbirth %>" required></div>
     <button type="submit">Submit</button>
 </form>
-<div>Hello <%= yourDetails.yourname %>, You were born on <%= yourDetails.yourdateofbirth %> which makes you <%= yourAge %> days old.</div>
+<% if(yourDetails.yourname && yourDetails.yourdateofbirth) { %> 
+    <div>Hello <%= yourDetails.yourname %>, You were born on <%= yourDetails.yourdateofbirth %> which makes you <%= yourAge %> days old.</div>
+<% } %> 
+
+<% celebrities.forEach(celebrity => { %>
+    <div>
+        <%= celebrity.name %>
+    </div>
+    <div>
+        <label>Date of Birth</label> <%= celebrity.dateOfBirth.toLocaleDateString(undefined,options) %>
+    </div>
+    <% if(celebrity.dateOfDeath != null && celebrity.dateOfDeath != '') { %>
+        <div><label>Date of Death</label> <%= celebrity.dateOfDeath.toLocaleDateString(undefined,options) %></div>
+        <% } %>
+        <div><label>Age in Days</label> <%= celebrity.ageInDays %></div>
+    
+    <% }) %>
