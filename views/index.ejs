@@ -8,8 +8,22 @@
 <% if(yourDetails.yourname && yourDetails.yourdateofbirth) { %> 
     <div>Hello <%= yourDetails.yourname %>, You were born on <%= yourDetails.yourdateofbirth %> which makes you <%= yourAge %> days old.</div>
 <% } %> 
-
-<% celebrities.forEach(celebrity => { %>
+<h2>Oldeer Celebrities</h2>
+<% olderCelebrities.forEach(celebrity => { %>
+    <div>
+        <%= celebrity.name %>
+    </div>
+    <div>
+        <label>Date of Birth</label> <%= celebrity.dateOfBirth.toLocaleDateString(undefined,options) %>
+    </div>
+    <% if(celebrity.dateOfDeath != null && celebrity.dateOfDeath != '') { %>
+        <div><label>Date of Death</label> <%= celebrity.dateOfDeath.toLocaleDateString(undefined,options) %></div>
+        <% } %>
+        <div><label>Age in Days</label> <%= celebrity.ageInDays %></div>
+    
+    <% }) %>
+    <h2>Younger Celebrities</h2>
+<% youngerCelebrities.forEach(celebrity => { %>
     <div>
         <%= celebrity.name %>
     </div>
