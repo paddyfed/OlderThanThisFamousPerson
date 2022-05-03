@@ -1,4 +1,4 @@
-const youngerThanUtils = require('../utils-module/youngerthan')
+const youngerThanUtils = require('../utils-module/ageutilities')
 const celebrities = [
     {
         "name": "Jim",

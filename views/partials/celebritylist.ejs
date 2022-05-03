@@ -1,0 +1,15 @@
+<% const options = { year: 'numeric', month: '2-digit', day: '2-digit' } %> 
+
+<% celebrities.forEach(celebrity => { %>
+
+<div>
+    <b><%= celebrity.name %></b>
+</div>
+<div>
+    <label>Date of Birth</label> <%= celebrity.dateOfBirth.toLocaleDateString(undefined,options) %>
+</div>
+<% if(celebrity.dateOfDeath != null && celebrity.dateOfDeath != '') { %>
+    <div><label>Date of Death</label> <%= celebrity.dateOfDeath.toLocaleDateString(undefined,options) %></div>
+    <% } %>
+    <div><label>Age in Days</label> <%= celebrity.ageInDays %></div>
+    <% }) %>

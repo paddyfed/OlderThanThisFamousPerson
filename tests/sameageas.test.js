@@ -1,4 +1,5 @@
-const olderThanUtils = require('../utils-module/ageutilities')
+const sameAgeAsUtils = require('../utils-module/ageutilities')
+
 const celebrities = [
     {
         "name": "Jim",
@@ -6,6 +7,14 @@ const celebrities = [
     },
     {
         "name": "Kyle",
+        "ageInDays": 24
+    },
+    {
+        "name": "Richard",
+        "ageInDays": 24
+    },
+    {
+        "name": "Noel",
         "ageInDays": 24
     },
     {
@@ -21,7 +30,7 @@ const celebrities = [
         "ageInDays": 20
     }
 ]
-const userAgeInDays = 20
+const userAgeInDays = 23
 
 const moreCelebrities = [
     {
@@ -75,47 +84,37 @@ const moreCelebrities = [
     }
 ]
 
-// test('Find 20 celebrities older than the user', () => {
-//     expect(olderThanUtils.findOlderCelebrities(userDob,celebrities)).toContain("Kyle")
-// })
-
-test('Find 1 celebrities older than the user', () => {
-    expect(olderThanUtils.findOlderCelebrities(userAgeInDays, celebrities,1))
-        .toEqual(expect.arrayContaining([
-            expect.objectContaining({
-                "name": "John"
-            }),
-            expect.not.objectContaining({
-                "name": "Kyle"
-            })
-        ]))
-})
-
-test('Find 3 celebrities older than the user', () => {
-    expect(olderThanUtils.findOlderCelebrities(userAgeInDays, celebrities,3))
+test('Find 1 celebrities same age as the user', () => {
+    expect(sameAgeAsUtils.findSameAgeCelebrities(userAgeInDays, celebrities,1))
         .toEqual(expect.arrayContaining([
             expect.objectContaining({
                 "name": "Jim"
-            }),
-            expect.objectContaining({
-                "name": "John"
-            }),
-            expect.objectContaining({
-                "name": "Tony"
-            }),
-            expect.not.objectContaining({
-                "name": "Kyle"
-            }),
-            expect.not.objectContaining({
-                "name": "Stephen"
             })
         ]))
 })
 
-test('find all celebrities older than the user', () => {
-    expect(olderThanUtils.findOlderCelebrities(30000,moreCelebrities).length).toEqual(5)
+test('Find 3 celebrities same age as the user', () => {
+    expect(sameAgeAsUtils.findSameAgeCelebrities(24, celebrities,3))
+        .toEqual(expect.arrayContaining([
+            expect.objectContaining({
+                "name": "Kyle"
+            }),
+            expect.objectContaining({
+                "name": "Noel"
+            }),
+            expect.objectContaining({
+                "name": "Richard"
+            })
+        ]))
 })
 
-test('Find 20 celebrities when there are not 20 celebrities in the list', () => {
-    expect(olderThanUtils.findOlderCelebrities(30000,moreCelebrities,20).length).toEqual(5)
+
+test('Find 1 celebrities same age as the user', () => {
+    expect(sameAgeAsUtils.findSameAgeCelebrities(29953, moreCelebrities))
+        .toEqual(expect.arrayContaining([
+            expect.objectContaining({
+                "name": "Al Pacino"
+            })
+        ]))
 })
+
