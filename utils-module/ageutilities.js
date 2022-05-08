@@ -66,3 +66,15 @@ function findCelebrities(userAgeInDays, listOfCelebrities, numberOfMatches, sear
         return returnedCelebrities
     }
 }
+
+exports.findCelebritiesCloseInAge = function (userAgeInDays, listOfCelebrities,numberOfMatches) {
+    listOfCelebrities.sort(function (a,b) {
+        return a.ageDiffWithUser - b.ageDiffWithUser
+    })
+
+    return numberOfMatches ? listOfCelebrities.slice(0,numberOfMatches) : listOfCelebrities
+}
+
+exports.calcualteAgeDifference = function (userAgeInDays, celebrityAgeInDays) {
+    return (userAgeInDays - celebrityAgeInDays) > 0 ? (userAgeInDays - celebrityAgeInDays) : (userAgeInDays - celebrityAgeInDays) * -1
+}
