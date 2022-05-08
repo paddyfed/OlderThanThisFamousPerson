@@ -4,10 +4,14 @@ const dateUtils = require('../utils-module/calculatedates')
 const ageUtils = require('../utils-module/ageutilities')
 const Celebrity = require('../models/celebrity')
 
+const options = { year: 'numeric', month: '2-digit', day: '2-digit' }
+
 router.get('/', async (req, res) => {
     let yourage
+    let yourDateOfBirth
     if (req.query.yourdateofbirth != null && req.query.yourdateofbirth != '') {
         yourage = dateUtils.calculateCelebrityAge(Date.parse(req.query.yourdateofbirth))
+        yourDateOfBirth = new Date(req.query.yourdateofbirth).toLocaleDateString(undefined,options)
     }
 
     try {
@@ -22,7 +26,7 @@ router.get('/', async (req, res) => {
         const sameAgeCelebrities = ageUtils.findSameAgeCelebrities(yourage,celebrities)
         const closeAgeWithCelebrities = ageUtils.findCelebritiesCloseInAge(yourage,celebrities,5)
 
-        res.render('index', { yourDetails: req.query, yourAge: yourage, olderCelebrities: olderCelebrities, youngerCelebrities: youngerCelebrities, sameAgeCelebrities: sameAgeCelebrities, closeAgeWithCelebrities: closeAgeWithCelebrities })
+        res.render('index', { yourDetails: req.query, yourAge: yourage, yourDateOfBirth: yourDateOfBirth, olderCelebrities: olderCelebrities, youngerCelebrities: youngerCelebrities, sameAgeCelebrities: sameAgeCelebrities, closeAgeWithCelebrities: closeAgeWithCelebrities })
     } catch (error) {
         res.render('/')
     }

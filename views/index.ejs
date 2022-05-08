@@ -5,7 +5,7 @@
     <button type="submit">Submit</button>
 </form>
 <% if(yourDetails.yourname && yourDetails.yourdateofbirth) { %> 
-    <div>Hello <%= yourDetails.yourname %>, You were born on <%= yourDetails.yourdateofbirth %> which makes you <%= yourAge %> days old.</div>
+    <div>Hello <%= yourDetails.yourname %>, You were born on <%= yourDateOfBirth %> which makes you <%= yourAge %> days old.</div>
 <% } %> 
 <h2>Older Celebrities</h2>
     <%- include('./partials/celebritylist.ejs', { celebrities: olderCelebrities }) %>     
