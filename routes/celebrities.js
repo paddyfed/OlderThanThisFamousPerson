@@ -13,6 +13,7 @@ router.get('/', async (req, res) => {
         const celebrities = await Celebrity.find(searchOptions)
         celebrities.forEach(celebrity => {
             celebrity.ageInDays = dateUtils.calculateCelebrityAge(celebrity.dateOfBirth,celebrity.dateOfDeath)
+            celebrity.ageInYearsAndDays = dateUtils.calculateAgeInYearsAndDays(celebrity.dateOfBirth, celebrity.dateOfDeath)
         })
         res.render('celebrities/index', { celebrities: celebrities, searchOptions: req.query })
 
@@ -34,9 +35,17 @@ router.post('/', async (req, res) => {
         dateOfDeath: req.body.dateofdeath
     })
 
+    const routeValue = req.body.submitvalue
+
     try {
         const newCelebrity = await celebrity.save()
+        if(routeValue == 'Create') {
         res.redirect(`celebrities/${newCelebrity.id}`)
+    }
+    else {
+        res.redirect('celebrities/new')
+        
+    }
 
     } catch (error) {
         res.render('celebrities/new', {

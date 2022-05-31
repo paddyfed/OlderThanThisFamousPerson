@@ -7,9 +7,9 @@
 </form>
 <br>
 <% celebrities.forEach(celebrity => { %>
-    <div>
+    <h4>
         <%= celebrity.name %>
-    </div>
+    </h4>
     <div>
         <label>Date of Birth</label> <%= celebrity.dateOfBirth.toLocaleDateString(undefined,options) %>
     </div>
@@ -17,6 +17,7 @@
         <div><label>Date of Death</label> <%= celebrity.dateOfDeath.toLocaleDateString(undefined,options) %></div>
         <% } %>
         <div><label>Age in Days</label> <%= celebrity.ageInDays %></div>
+        <div><label>Age in Years and Days</label> <%= celebrity.ageInYearsAndDays %></div>
     <a href="/celebrities/<%= celebrity.id %> ">View</a>
     <a href="/celebrities/<%= celebrity.id %>/edit">Edit</a>
     <%- include('../partials/deleteform', { url: `/celebrities/${celebrity.id}` }) %> 
