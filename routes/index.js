@@ -9,9 +9,13 @@ const options = { year: 'numeric', month: '2-digit', day: '2-digit' }
 router.get('/', async (req, res) => {
     let yourage
     let yourDateOfBirth
+    let yourAgeInYearsAndDays
+
     if (req.query.yourdateofbirth != null && req.query.yourdateofbirth != '') {
-        yourage = dateUtils.calculateCelebrityAge(Date.parse(req.query.yourdateofbirth))
-        yourDateOfBirth = new Date(req.query.yourdateofbirth).toLocaleDateString(undefined,options)
+        const yourDOB = new Date(req.query.yourdateofbirth)
+        yourage = dateUtils.calculateCelebrityAge(yourDOB)
+        yourDateOfBirth = yourDOB.toLocaleDateString(undefined,options)
+        yourAgeInYearsAndDays = dateUtils.calculateAgeInYearsAndDays(yourDOB)
     }
 
     try {
@@ -19,6 +23,7 @@ router.get('/', async (req, res) => {
         celebrities.forEach(celebrity => {
             celebrity.ageInDays = dateUtils.calculateCelebrityAge(celebrity.dateOfBirth, celebrity.dateOfDeath)
             celebrity.ageDiffWithUser = ageUtils.calcualteAgeDifference(yourage,celebrity.ageInDays)
+            celebrity.ageInYearsAndDays = dateUtils.calculateAgeInYearsAndDays(celebrity.dateOfBirth, celebrity.dateOfDeath)
         })
 
         const olderCelebrities = ageUtils.findOlderCelebrities(yourage,celebrities,5)
@@ -26,7 +31,7 @@ router.get('/', async (req, res) => {
         const sameAgeCelebrities = ageUtils.findSameAgeCelebrities(yourage,celebrities)
         const closeAgeWithCelebrities = ageUtils.findCelebritiesCloseInAge(yourage,celebrities,5)
 
-        res.render('index', { yourDetails: req.query, yourAge: yourage, yourDateOfBirth: yourDateOfBirth, olderCelebrities: olderCelebrities, youngerCelebrities: youngerCelebrities, sameAgeCelebrities: sameAgeCelebrities, closeAgeWithCelebrities: closeAgeWithCelebrities })
+        res.render('index', { yourDetails: req.query, yourAge: yourage, yourAgeInYearsAndDays: yourAgeInYearsAndDays, yourDateOfBirth: yourDateOfBirth, olderCelebrities: olderCelebrities, youngerCelebrities: youngerCelebrities, sameAgeCelebrities: sameAgeCelebrities, closeAgeWithCelebrities: closeAgeWithCelebrities })
     } catch (error) {
         res.render('/')
     }
