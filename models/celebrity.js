@@ -1,4 +1,7 @@
 const mongoose = require('mongoose')
+const dateUtils = require('../utils-module/calculatedates')
+const ageUtils = require('../utils-module/ageutilities')
+
 
 const celebritySchema = new mongoose.Schema({
     name: {
@@ -12,6 +15,18 @@ const celebritySchema = new mongoose.Schema({
     dateOfDeath: {
         type: Date
     }
+})
+
+celebritySchema.virtual('ageInDays').get(function() {
+    return dateUtils.calculateCelebrityAge(this.dateOfBirth, this.dateOfDeath)
+})
+
+celebritySchema.virtual('ageInYearsAndDays').get(function() {
+    return dateUtils.calculateAgeInYearsAndDays(this.dateOfBirth, this.dateOfDeath)
+})
+
+celebritySchema.virtual('ageDiffWithUser').get(function() {
+    return ageUtils.calcualteAgeDifference(12, this.ageInDays)
 })
 
 module.exports = mongoose.model('Celebrity', celebritySchema)

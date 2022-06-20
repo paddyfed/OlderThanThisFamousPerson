@@ -11,10 +11,10 @@ router.get('/', async (req, res) => {
     }
     try {
         const celebrities = await Celebrity.find(searchOptions)
-        celebrities.forEach(celebrity => {
-            celebrity.ageInDays = dateUtils.calculateCelebrityAge(celebrity.dateOfBirth,celebrity.dateOfDeath)
-            celebrity.ageInYearsAndDays = dateUtils.calculateAgeInYearsAndDays(celebrity.dateOfBirth, celebrity.dateOfDeath)
-        })
+        // celebrities.forEach(celebrity => {
+        //     //celebrity.ageInDays = dateUtils.calculateCelebrityAge(celebrity.dateOfBirth, celebrity.dateOfDeath)
+        //     celebrity.ageInYearsAndDays = dateUtils.calculateAgeInYearsAndDays(celebrity.dateOfBirth, celebrity.dateOfDeath)
+        // })
         res.render('celebrities/index', { celebrities: celebrities, searchOptions: req.query })
 
     } catch (error) {
@@ -39,13 +39,12 @@ router.post('/', async (req, res) => {
 
     try {
         const newCelebrity = await celebrity.save()
-        if(routeValue == 'Create') {
-        res.redirect(`celebrities/${newCelebrity.id}`)
-    }
-    else {
-        res.redirect('celebrities/new')
-        
-    }
+        if (routeValue == 'Create') {
+            res.redirect(`celebrities/${newCelebrity.id}`)
+        }
+        else {
+            res.redirect('celebrities/new')
+        }
 
     } catch (error) {
         res.render('celebrities/new', {

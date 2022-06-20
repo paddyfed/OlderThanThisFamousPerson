@@ -21,10 +21,10 @@ router.get('/', async (req, res) => {
     try {
         const celebrities = await Celebrity.find()
         celebrities.forEach(celebrity => {
-            celebrity.ageInDays = dateUtils.calculateCelebrityAge(celebrity.dateOfBirth, celebrity.dateOfDeath)
+            //celebrity.ageInDays = dateUtils.calculateCelebrityAge(celebrity.dateOfBirth, celebrity.dateOfDeath)
             celebrity.ageDiffWithUser = ageUtils.calcualteAgeDifference(yourage,celebrity.ageInDays)
-            celebrity.ageInYearsAndDays = dateUtils.calculateAgeInYearsAndDays(celebrity.dateOfBirth, celebrity.dateOfDeath)
-        })
+            // celebrity.ageInYearsAndDays = dateUtils.calculateAgeInYearsAndDays(celebrity.dateOfBirth, celebrity.dateOfDeath)
+       })
 
         const olderCelebrities = ageUtils.findOlderCelebrities(yourage,celebrities,5)
         const youngerCelebrities = ageUtils.findYoungerCelebrities(yourage,celebrities,5)
