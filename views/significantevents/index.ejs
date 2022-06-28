@@ -1,0 +1,13 @@
+<% const options = { year: 'numeric', month: '2-digit', day: '2-digit' } %>
+<h2>Significant Events</h2>
+<% significantevents.forEach(significantevent => { %>
+    <div>
+        <label>Event Description</label> <%= significantevent.event %>
+    </div>
+    <div>
+        <label>Event Date</label> <%= significantevent.eventDate.toLocaleDateString(undefined, options) %>
+    </div>
+    <div>
+        <label>Related Celebrity</label> <%= significantevent.celebrity.name %>
+    </div>
+<% }) %>

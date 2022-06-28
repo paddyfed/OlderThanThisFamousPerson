@@ -7,8 +7,8 @@ const SignificantEvent = require('../models/significantevent')
 // all events route
 router.get('/', async (req, res) => {
     try {
-        const significantevent = await SignificantEvent.find()
-        res.render('significantevents/index', { significantevent: significantevent})        
+        const significantevents = await SignificantEvent.find().populate('celebrity')
+        res.render('significantevents/index', { significantevents: significantevents})        
     } catch (error) {
         res.redirect('/')
     }
