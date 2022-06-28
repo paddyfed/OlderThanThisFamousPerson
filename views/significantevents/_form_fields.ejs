@@ -1,0 +1,20 @@
+<div>
+    <label>Event</label>
+    <input type="text" name="event" value="<%= significantevent.event %>">
+</div>
+<div>
+    <input type="Date" name="eventdate" value="<%= significantevent.eventDate == null ? '' : celebrity.dateOfBirth.toISOString().split('T')[0] %>">
+    <label>Date of Event</label>
+</div>
+<div>
+    <label>Celebrity</label>
+    <select name="celebrity">
+        <% celebrities.forEach(celebrity => { %>
+            <% if(celebrity.id === significantevent.celebrity) { %>
+                <option label="<%= celebrity.name %>" value="<%= celebrity.id %>" selected>
+                    <% } else { %>
+                <option label="<%= celebrity.name %>" value="<%= celebrity.id %>">
+                    <% } %>
+                        <% }) %>
+    </select>
+</div>

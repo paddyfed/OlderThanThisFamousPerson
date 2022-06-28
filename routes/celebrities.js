@@ -11,10 +11,6 @@ router.get('/', async (req, res) => {
     }
     try {
         const celebrities = await Celebrity.find(searchOptions)
-        // celebrities.forEach(celebrity => {
-        //     //celebrity.ageInDays = dateUtils.calculateCelebrityAge(celebrity.dateOfBirth, celebrity.dateOfDeath)
-        //     celebrity.ageInYearsAndDays = dateUtils.calculateAgeInYearsAndDays(celebrity.dateOfBirth, celebrity.dateOfDeath)
-        // })
         res.render('celebrities/index', { celebrities: celebrities, searchOptions: req.query })
 
     } catch (error) {
