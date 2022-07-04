@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Celebrity = require('../models/celebrity')
+const SignificantEvent = require('../models/significantevent')
 const dateUtils = require('../utils-module/calculatedates')
 
 // all celebrities route
@@ -53,9 +54,11 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const celebrity = await Celebrity.findById(req.params.id)
-        const ageInDays = dateUtils.calculateCelebrityAge(celebrity.dateOfBirth, celebrity.dateOfDeath)
-        celebrity.ageInDays = ageInDays
-        res.render('celebrities/view', { celebrity: celebrity })
+        const significantevents = await SignificantEvent.find({ celebrity: celebrity.id }).sort({ eventDate: 'asc' }).exec()
+        res.render('celebrities/view', { 
+            celebrity: celebrity,
+            significantevents: significantevents
+         })
     } catch (error) {
         res.redirect('/')
     }

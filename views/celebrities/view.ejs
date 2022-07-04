@@ -5,5 +5,20 @@
 <div><label>Date of Death</label> <%= celebrity.dateOfDeath.toLocaleDateString(undefined,options) %></div>
 <% } %> 
 <div><label>Age in Days</label> <%= celebrity.ageInDays %></div>
+<div><label>Age in Years and Days</label> <%= celebrity.ageInYearsAndDays %></div>
+
+<% if(significantevents.length > 0) { %>
+<h2>significantevents</h2>
+<table>
+
+    <% significantevents.forEach(significantevent => { %>
+        <tr>
+
+            <td><%= significantevent.eventDate.toLocaleDateString(undefined,options) %></td>
+            <td><%= significantevent.event %></td>
+            <% }) %> 
+        </tr>
+        <% } %>
+    </table>
 <a href="/celebrities/<%= celebrity.id %>/edit">Edit</a>
 <%- include('../partials/deleteform', { url: `/celebrities/${celebrity.id}` }) %> 
