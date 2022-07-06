@@ -7,18 +7,30 @@
 <div><label>Age in Days</label> <%= celebrity.ageInDays %></div>
 <div><label>Age in Years and Days</label> <%= celebrity.ageInYearsAndDays %></div>
 
-<% if(significantevents.length > 0) { %>
-<h2>significantevents</h2>
+<% if(celebrity.events.length > 0) { %>
+<h2>Significant Events</h2>
 <table>
-
-    <% significantevents.forEach(significantevent => { %>
+    <thead>
         <tr>
+            <th>Event Date</th>
+            <th>Event</th>
+            <th>Age at Time of Event</th>
+            <th>Age at Time of Event in Days</th>
+        </tr>
+    </thead>
+    <tbody>
 
+    <% celebrity.events.forEach(significantevent => { %>
+        <tr>
+            
             <td><%= significantevent.eventDate.toLocaleDateString(undefined,options) %></td>
             <td><%= significantevent.event %></td>
+            <td><%= significantevent.ageAtEvent %></td>
+            <td><%= significantevent.ageAtEventInDays %></td>
             <% }) %> 
         </tr>
         <% } %>
+    </tbody>
     </table>
 <a href="/celebrities/<%= celebrity.id %>/edit">Edit</a>
 <%- include('../partials/deleteform', { url: `/celebrities/${celebrity.id}` }) %> 

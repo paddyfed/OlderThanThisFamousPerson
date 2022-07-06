@@ -53,11 +53,14 @@ router.post('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const celebrity = await Celebrity.findById(req.params.id)
-        const significantevents = await SignificantEvent.find({ celebrity: celebrity.id }).sort({ eventDate: 'asc' }).exec()
+        const celebrity = await Celebrity.findById(req.params.id).populate('events')
+        celebrity.events.sort((a,b) => (a.eventDate > b.eventDate) ? 1 : (b.eventDate > a.eventDate) ? -1 : 0)
+        celebrity.events.forEach(element => {
+            element.ageAtEvent = dateUtils.calculateAgeInYearsAndDays(celebrity.dateOfBirth, element.eventDate)
+            element.ageAtEventInDays = dateUtils.calculateCelebrityAge(celebrity.dateOfBirth, element.eventDate)
+        });
         res.render('celebrities/view', { 
-            celebrity: celebrity,
-            significantevents: significantevents
+            celebrity: celebrity
          })
     } catch (error) {
         res.redirect('/')

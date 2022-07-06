@@ -16,6 +16,4 @@ const significantEventSchema = new mongoose.Schema({
     }
 })
 
-
-
 module.exports = mongoose.model('SignificantEvent', significantEventSchema)

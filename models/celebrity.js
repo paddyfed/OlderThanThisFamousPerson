@@ -29,4 +29,10 @@ celebritySchema.virtual('ageDiffWithUser').get(function() {
     return ageUtils.calcualteAgeDifference(12, this.ageInDays)
 })
 
+celebritySchema.virtual('events', {
+    ref: 'SignificantEvent',
+    localField: '_id',
+    foreignField: 'celebrity'
+})
+
 module.exports = mongoose.model('Celebrity', celebritySchema)
